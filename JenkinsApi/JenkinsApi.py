@@ -3,25 +3,25 @@ from jenkinsapi.jenkins import *
 import smtplib
 from email.mime.text import MIMEText
 # for key, job1 in j.iteritems():
-# jobName ÊÇStrinÀàĞÍ jobÊÇobj
+# jobName æ˜¯Strinç±»å‹ jobæ˜¯obj
 currenttime = time.localtime(time.time())
-# %Y-%m-%d %H:%M:%S ¸ñÊ½»¯µ±Ç°Ê±¼ä
+# %Y-%m-%d %H:%M:%S æ ¼å¼åŒ–å½“å‰æ—¶é—´
 currenttime1 = time.strftime('%Y-%m-%d %H:%M:%S', currenttime)
-# »ñµÃStringÀàĞÍ
-print(type(currenttime1), currenttime1, '-------µ±Ç°Ê±¼ä----')
-##Ê±¼ä´Á×ª»»
+# è·å¾—Stringç±»å‹
+print(type(currenttime1), currenttime1, '-------å½“å‰æ—¶é—´----')
+##æ—¶é—´æˆ³è½¬æ¢
 date2 = time.mktime(time.strptime(currenttime1, '%Y-%m-%d %H:%M:%S'))
 
-print(type(date2), date2, '---µ±Ç°Ê±¼äÊ±¼ä´Á--------')
+print(type(date2), date2, '---å½“å‰æ—¶é—´æ—¶é—´æˆ³--------')
 
-jenkins_server_url = 'http://192.172.2.101:8080'
+jenkins_server_url = 'http://:8080'
 user_id = 'hucais'
 api_token1 = 'hucais'
 j = Jenkins(jenkins_server_url, username=user_id, password=api_token1)
-# »ñµÃ×÷ÒµµÄÃû×Ö Êı×éjobnames
+# è·å¾—ä½œä¸šçš„åå­— æ•°ç»„jobnames
 jobNames = j.keys()
 for jobName in jobNames:
-    # Í¨¹ıget_job»ñµÃjob¶ÔÏó
+    # é€šè¿‡get_jobè·å¾—jobå¯¹è±¡
     job = j.get_job(jobName)
     # print(job)
     # run = jobname.get_last_buildnumber()
@@ -29,102 +29,102 @@ for jobName in jobNames:
     isRunning = job.is_running()
     if isRunning == True:
         # print(jobname)
-        job.name = jobName + '----×´Ì¬£º´¦ÓÚ¹¹½¨×´Ì¬---'
-        # »ñµÃ×îºóÒ»´Î¹¹½¨±àºÅ
+        job.name = jobName + '----çŠ¶æ€ï¼šå¤„äºæ„å»ºçŠ¶æ€---'
+        # è·å¾—æœ€åä¸€æ¬¡æ„å»ºç¼–å·
         last_build = job.get_last_buildnumber()
-        # »ñµÃ×îºóÒ»´ÎµÄ¹¹½¨Ê±¼ä
+        # è·å¾—æœ€åä¸€æ¬¡çš„æ„å»ºæ—¶é—´
         build = job.get_build(last_build)
         buildtime = build.get_timestamp()
-        # »ñµÃ¹¹½¨Ê±¼ä¸Ä±äÊ±Çø
+        # è·å¾—æ„å»ºæ—¶é—´æ”¹å˜æ—¶åŒº
         buildtime1 = buildtime + datetime.timedelta(hours=8)
         buildtime2 = datetime.datetime.strftime(buildtime1, '%Y-%m-%d %H:%M:%S')
-        print(job.name, buildtime2, '-----jobÃû ¹¹½¨Ê±¼ä----------')
-        print(type(buildtime2), buildtime2, "------------¹¹½¨Ê±¼ä----------")
-        ##Ê±¼ä´Á×ª»»
+        print(job.name, buildtime2, '-----jobå æ„å»ºæ—¶é—´----------')
+        print(type(buildtime2), buildtime2, "------------æ„å»ºæ—¶é—´----------")
+        ##æ—¶é—´æˆ³è½¬æ¢
         date1 = time.mktime(time.strptime(buildtime2, '%Y-%m-%d %H:%M:%S'))
-        # »ñµÃStringÀàĞÍ
-        print(type(date1), date1, "------------¹¹½¨Ê±¼äÊ±¼ä´Á----------")
+        # è·å¾—Stringç±»å‹
+        print(type(date1), date1, "------------æ„å»ºæ—¶é—´æ—¶é—´æˆ³----------")
         delta = date2 - date1
         print(delta)
         if 7200 > delta >= 1800:
             try:
-                sender1 = '1357379275@qq.com'
-                password1 = 'zmwqvwhxqcglijjg'
-                reveivers1 = ['1357379275@qq.com', '981038426@qq.com', '351541764@qq.com','463689898@qq.com']
-                #30minÔ¤¾¯
-                subject1='---jenkinsÓÊ¼şµ±Ç°jobÒÑ¾­³ÖĞøÔËĞĞ30minÎ´½áÊø---'
-                content1=job.name+"Ö´ĞĞÇé¿ö--´ËjobÒÑÖ´ĞĞ30minÉĞÎ´Íê³É£¬ÇëÖØµã¹Ø×¢"
+                sender1 = '@qq.com'
+                password1 = ''
+                reveivers1 = ['@qq.com', '@qq.com', '@qq.com','@qq.com']
+                #30miné¢„è­¦
+                subject1='---jenkinsé‚®ä»¶å½“å‰jobå·²ç»æŒç»­è¿è¡Œ30minæœªç»“æŸ---'
+                content1=job.name+"æ‰§è¡Œæƒ…å†µ--æ­¤jobå·²æ‰§è¡Œ30minå°šæœªå®Œæˆï¼Œè¯·é‡ç‚¹å…³æ³¨"
                 msg1=MIMEText(content1,'plain','utf-8')
                 msg1['Subject']=subject1
                 msg1['To']=','.join(reveivers1)
-                #####ÓÃjoin()¶à¸öÓÊÏä°´ÕÕ¶ººÅÆ´½Ó³É×Ö·û´®
+                #####ç”¨join()å¤šä¸ªé‚®ç®±æŒ‰ç…§é€—å·æ‹¼æ¥æˆå­—ç¬¦ä¸²
                 server1 = smtplib.SMTP_SSL("smtp.qq.com", 465)
                 server1.login(sender1, password1)
                 server1.sendmail(sender1,reveivers1,msg1.as_string())
-                print(job.name + "Ö´ĞĞÇé¿ö--´ËjobÒÑÖ´ĞĞ30minÉĞÎ´Íê³É£¬ÇëÖØµã¹Ø×¢---ÓÊ¼şÒÑ·¢ËÍ")
+                print(job.name + "æ‰§è¡Œæƒ…å†µ--æ­¤jobå·²æ‰§è¡Œ30minå°šæœªå®Œæˆï¼Œè¯·é‡ç‚¹å…³æ³¨---é‚®ä»¶å·²å‘é€")
             except smtplib.SMTPException as e:
                 print(e)
 
         elif delta >= 7200:
-            print(job.name + 'Ö´ĞĞÇé¿ö--ÒÉËÆ×èÈû£¬Çë¾¡¿ì´¦Àí')
-            ####·¢ËÍÓÊ¼şµÚÒ»ÖÖ·½Ê½#######
-            # ÅäÖÃÓÊ¼şµÄ·şÎñÆ÷µØÖ·
+            print(job.name + 'æ‰§è¡Œæƒ…å†µ--ç–‘ä¼¼é˜»å¡ï¼Œè¯·å°½å¿«å¤„ç†')
+            ####å‘é€é‚®ä»¶ç¬¬ä¸€ç§æ–¹å¼#######
+            # é…ç½®é‚®ä»¶çš„æœåŠ¡å™¨åœ°å€
             Host = 'smtp.qq.com'
-            # ÓÊ¼şµÄ·¢ËÍ¶Ë¿Ú
+            # é‚®ä»¶çš„å‘é€ç«¯å£
             Port = '465'
-            # Ö¸¶¨·¢¼şÈËºÍÊÕ¼şÈË
-            From ='1357379275@qq.com'
-            TO = '1357379275@qq.com'
-            TO1 = '981038426@qq.com'
-            TO2 = '351541764@qq.com'
-            TO3='463689898@qq.com'
-            SUBJECT = 'À´×ÔjenkinsµÄ×èÈû±¨¾¯²âÊÔÓÊ¼ş@1---'
-            CONTENT = job.name + "Ö´ĞĞÇé¿ö--´Ëjob¹¹½¨ÒÑ¾­ÓÃÊ±3Ğ¡Ê±£¬ÒÑ¾­×Ô¶¯¶ªÆúÕâ¸ö¹¹½¨£¬Çë×¢ÒâÇ°Íùjenkins192.172.2.101·şÎñÆ÷½øĞĞÊÖ¶¯´¦Àí"
-            # ´´½¨ÓÊ¼ş·¢ËÍ¶ÔÏó
-            # ÆÕÍ¨µÄÓÊ¼ş·¢ËÍĞÎÊ½
+            # æŒ‡å®šå‘ä»¶äººå’Œæ”¶ä»¶äºº
+            From ='@qq.com'
+            TO = '@qq.com'
+            TO1 = '@qq.com'
+            TO2 = '@qq.com'
+            TO3='@qq.com'
+            SUBJECT = 'æ¥è‡ªjenkinsçš„é˜»å¡æŠ¥è­¦æµ‹è¯•é‚®ä»¶@1---'
+            CONTENT = job.name + "æ‰§è¡Œæƒ…å†µ--æ­¤jobæ„å»ºå·²ç»ç”¨æ—¶3å°æ—¶ï¼Œå·²ç»è‡ªåŠ¨ä¸¢å¼ƒè¿™ä¸ªæ„å»ºï¼Œè¯·æ³¨æ„å‰å¾€jenkins192.172.2.101æœåŠ¡å™¨è¿›è¡Œæ‰‹åŠ¨å¤„ç†"
+            # åˆ›å»ºé‚®ä»¶å‘é€å¯¹è±¡
+            # æ™®é€šçš„é‚®ä»¶å‘é€å½¢å¼
             # smtp_obj=smtplib.SMTP()
-            # Êı¾İÔÚ´«Êä¹ı³ÌÖĞ»á±»¼ÓÃÜ
-            # python3Óï·¨ÖĞÓĞ¸Ä±ä
+            # æ•°æ®åœ¨ä¼ è¾“è¿‡ç¨‹ä¸­ä¼šè¢«åŠ å¯†
+            # python3è¯­æ³•ä¸­æœ‰æ”¹å˜
             smtp_obj = smtplib.SMTP_SSL(host=Host)
-            # ĞèÒª½øĞĞ·¢¼şÈËµÄÈÏÖ¤£¬ÊÚÈ¨
-            # smtp_obj¾ÍÊÇÒ»¸öµÚÈı·½¿Í»§¶Ë¶ÔÏó
+            # éœ€è¦è¿›è¡Œå‘ä»¶äººçš„è®¤è¯ï¼Œæˆæƒ
+            # smtp_objå°±æ˜¯ä¸€ä¸ªç¬¬ä¸‰æ–¹å®¢æˆ·ç«¯å¯¹è±¡
             smtp_obj.connect(host=Host, port=Port)
 
-            # Èç¹ûÊ¹ÓÃµÚÈı·½¿Í»§¶ËµÇÂ½£¬ÒªÇóÊ¹ÓÃÊÚÈ¨Âë£¬·ÀÖ¹ÕæÊµÃÜÂëĞ¹Â¶
-            res = smtp_obj.login(user=From, password='zmwqvwhxqcglijjg')
-            print('µÇÂ½½á¹û--ÓÊ¼ş·½Ê½@1ÒÑ·¢ËÍ:', res)
-            # ·¢ËÍÓÊ¼ş
+            # å¦‚æœä½¿ç”¨ç¬¬ä¸‰æ–¹å®¢æˆ·ç«¯ç™»é™†ï¼Œè¦æ±‚ä½¿ç”¨æˆæƒç ï¼Œé˜²æ­¢çœŸå®å¯†ç æ³„éœ²
+            res = smtp_obj.login(user=From, password='')
+            print('ç™»é™†ç»“æœ--é‚®ä»¶æ–¹å¼@1å·²å‘é€:', res)
+            # å‘é€é‚®ä»¶
             msg = '\n'.join(
                 ['From:{}'.format(From), 'To:{}'.format(TO, TO1, TO2,TO3), 'Subject:{}'.format(SUBJECT), '', CONTENT])
             smtp_obj.sendmail(from_addr=From, to_addrs=[TO, TO1, TO2,TO3], msg=msg.encode('utf-8'))
-###·¢ËÍÓÊ¼şµÚ¶şÖÖ·½Ê½#########################################################################################
+###å‘é€é‚®ä»¶ç¬¬äºŒç§æ–¹å¼#########################################################################################
             # try:
-            #     sender = '1357379275@qq.com'
-            #     password = 'zmwqvwhxqcglijjg'
-            #     reveivers = ['1357379275@qq.com', '981038426@qq.com', '351541764@qq.com','463689898@qq.com']
-            #     subject = 'jenkinsÓÊ¼ş²âÊÔ±¨¾¯@2'
-            #     content = job.name + "Ö´ĞĞÇé¿ö--´Ëjob¹¹½¨ÒÑ¾­ÓÃÊ±3Ğ¡Ê±£¬ÒÑ¾­×Ô¶¯¶ªÆúÕâ¸ö¹¹½¨£¬Çë×¢ÒâÇ°Íùjenkins192.172.2.101·şÎñÆ÷½øĞĞ²é¿´´¥·¢Æ÷ÖØĞÂ¹¹½¨Çé¿ö"
-            #     #30minÔ¤¾¯
+            #     sender = '@qq.com'
+            #     password = ''
+            #     reveivers = ['@qq.com', '@qq.com', '@qq.com','@qq.com']
+            #     subject = 'jenkinsé‚®ä»¶æµ‹è¯•æŠ¥è­¦@2'
+            #     content = job.name + "æ‰§è¡Œæƒ…å†µ--æ­¤jobæ„å»ºå·²ç»ç”¨æ—¶3å°æ—¶ï¼Œå·²ç»è‡ªåŠ¨ä¸¢å¼ƒè¿™ä¸ªæ„å»ºï¼Œè¯·æ³¨æ„å‰å¾€jenkins192.172.2.101æœåŠ¡å™¨è¿›è¡ŒæŸ¥çœ‹è§¦å‘å™¨é‡æ–°æ„å»ºæƒ…å†µ"
+            #     #30miné¢„è­¦
             #     msg = MIMEText(content, 'plain', 'utf-8')
             #     msg['Subject'] = subject
             #     msg['From'] = sender
-            #     #####ÓÃjoin()¶à¸öÓÊÏä°´ÕÕ¶ººÅÆ´½Ó³É×Ö·û´®
+            #     #####ç”¨join()å¤šä¸ªé‚®ç®±æŒ‰ç…§é€—å·æ‹¼æ¥æˆå­—ç¬¦ä¸²
             #     msg['To'] = ','.join(reveivers)
             #     server = smtplib.SMTP_SSL("smtp.qq.com", 465)
             #     server.login(sender, password)
             #     server.sendmail(sender, reveivers, msg.as_string())
-            #     print("ÓÊ¼ş@2ÒÑ³É¹¦·¢ËÍ")
+            #     print("é‚®ä»¶@2å·²æˆåŠŸå‘é€")
             # except smtplib.SMTPException as e:
             #     print(e)
     else:
-        job.name = jobName + '----µ±Ç°²»ÔÚ¹¹½¨ÖĞ'
+        job.name = jobName + '----å½“å‰ä¸åœ¨æ„å»ºä¸­'
 
 
 
 
-    # ³õÊ¼»¯ÁãÊ±Çø
+    # åˆå§‹åŒ–é›¶æ—¶åŒº
     # tz = pytz.timezone('GMT')
-    # »ñÈ¡µ±Ç°ÏµÍ³
+    # è·å–å½“å‰ç³»ç»Ÿ
     #toTimes = datetime.datetime.fromtimestamp(int(buildtime1), tz).strftime('%Y-%m-%d %H:%M:%S')
     #print(job.name,toTimes)
 #     print(currenttime1)
