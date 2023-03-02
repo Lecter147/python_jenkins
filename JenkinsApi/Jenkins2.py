@@ -50,9 +50,9 @@ for jobName in jobNames:
         print(delta)
         if 7200 > delta >= 1800:
             try:
-                sender1 = '1357379275@qq.com'
-                password1 = 'zmwqvwhxqcglijjg'
-                reveivers1 = ['1357379275@qq.com', '981038426@qq.com', '351541764@qq.com','463689898@qq.com']
+                sender1 = '@qq.com'
+                password1 = ''
+                reveivers1 = ['@qq.com', '@qq.com', '@qq.com','@qq.com']
                 #30min预警
                 subject1='jenkins邮件测试已经持续运行30min未结束'
                 content1=job.name+"此job已执行30min尚未完成，请重点关注"
@@ -75,11 +75,11 @@ for jobName in jobNames:
             # 邮件的发送端口
             Port = '465'
             # 指定发件人和收件人
-            From ='1357379275@qq.com'
-            TO = '1357379275@qq.com'
-            TO1 = '981038426@qq.com'
-            TO2 = '351541764@qq.com'
-            TO3='463689898@qq.com'
+            From ='com'
+            TO = 'com'
+            TO1 = 'com'
+            TO2 = 'com'
+            TO3='com'
             SUBJECT = '来自jenkins的阻塞报警测试邮件@1---'
             CONTENT = job.name + "此job构建已经用时3小时，已经自动丢弃这个构建，请注意前往jenkins192.172.2.101服务器进行手动处理"
             # 创建邮件发送对象
@@ -101,9 +101,9 @@ for jobName in jobNames:
             smtp_obj.sendmail(from_addr=From, to_addrs=[TO, TO1, TO2,TO3], msg=msg.encode('utf-8'))
             ###发送邮件第二种方式###########
             try:
-                sender = '1357379275@qq.com'
-                password = 'zmwqvwhxqcglijjg'
-                reveivers = ['1357379275@qq.com', '981038426@qq.com', '351541764@qq.com','463689898@qq.com']
+                sender = '.com'
+                password = ''
+                reveivers = ['com', 'com']
                 subject = 'jenkins邮件测试报警@2'
                 content = job.name + "此job构建已经用时3小时，已经自动丢弃这个构建，请注意前往jenkins192.172.2.101服务器进行手动处理"
                 #30min预警
