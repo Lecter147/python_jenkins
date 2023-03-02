@@ -43,9 +43,9 @@ for jobName in jobNames:
         print(delta)
         if 7200 > delta >= 1800:
             try:
-                sender1 = '1357379275@qq.com'
-                password1 = 'zmwqvwhxqcglijjg'
-                reveivers1 = ['1357379275@qq.com', '981038426@qq.com', '351541764@qq.com', '463689898@qq.com']
+                sender1 = '@qq.com'
+                password1 = ''
+                reveivers1 = ['@qq.com', '@qq.com', '@qq.com', '@qq.com']
 
                 subject1 = '---jenkins邮件当前job已经持续运行30min未结束---'
                 content1 = job.name + "执行情况--此job已执行30min尚未完成，请重点关注"
@@ -67,13 +67,13 @@ for jobName in jobNames:
 
             Port = '465'
 
-            From = '1357379275@qq.com'
-            TO = '1357379275@qq.com'
-            TO1 = '981038426@qq.com'
-            TO2 = '351541764@qq.com'
-            TO3 = '463689898@qq.com'
+            From = '@qq.com'
+            TO = '@qq.com'
+            TO1 = '@qq.com'
+            TO2 = '@qq.com'
+            TO3 = '@qq.com'
             SUBJECT = '来自jenkins的阻塞报警测试邮件@1---'
-            CONTENT = job.name + "执行情况--此job构建已经用时3小时，已经自动丢弃这个构建，请注意前往jenkins192.172.2.101服务器进行手动处理"
+            CONTENT = job.name + "执行情况--此job构建已经用时3小时，已经自动丢弃这个构建，请注意前往jenkins1服务器进行手动处理"
 
             smtp_obj = smtplib.SMTP_SSL(host=Host)
 
